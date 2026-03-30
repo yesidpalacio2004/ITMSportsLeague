@@ -1,18 +1,22 @@
-﻿namespace SportsLeague.Domain.Entities;
-
-
-public class Team : AuditBase
-
+﻿namespace SportsLeague.Domain.Entities
 {
 
-    public string Name { get; set; } = string.Empty;
+    public class Team : AuditBase
 
-    public string City { get; set; } = string.Empty;
+    {
 
-    public string Stadium { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
-    public string? LogoUrl { get; set; }
+        public string City { get; set; } = string.Empty;
 
-    public DateTime FoundedDate { get; set; }
+        public string Stadium { get; set; } = string.Empty;
 
+        public string? LogoUrl { get; set; }
+
+        public DateTime FoundedDate { get; set; }
+
+        // Navigation Property - Colección de jugadores
+        public ICollection<Player> Players { get; set; } = new List<Player>();
+
+    }
 }
