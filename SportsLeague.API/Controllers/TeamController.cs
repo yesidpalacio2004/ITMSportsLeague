@@ -1,63 +1,35 @@
 ﻿using AutoMapper;
-
 using Microsoft.AspNetCore.Mvc;
-
 using SportsLeague.API.DTOs.Request;
-
 using SportsLeague.API.DTOs.Response;
-
 using SportsLeague.Domain.Entities;
-
 using SportsLeague.Domain.Interfaces.Services;
-
 
 namespace SportsLeague.API.Controllers;
 
-
 [ApiController]
-
 [Route("api/[controller]")]
 
 public class TeamController : ControllerBase
-
 {
-
     private readonly ITeamService _teamService;
-
     private readonly IMapper _mapper;
-
-    private readonly ILogger<TeamController> _logger;
-
 
     public TeamController(
 
-    ITeamService teamService,
-
-    IMapper mapper,
-
-    ILogger<TeamController> logger)
+    ITeamService teamService,IMapper mapper)
 
     {
-
         _teamService = teamService;
-
         _mapper = mapper;
-
-        _logger = logger;
 
     }
 
-
     [HttpGet]
-
     public async Task<ActionResult<IEnumerable<TeamResponseDTO>>> GetAll()
-
     {
-
         var teams = await _teamService.GetAllAsync();
-
         var teamsDto = _mapper.Map<IEnumerable<TeamResponseDTO>>(teams);
-
         return Ok(teamsDto);
 
     }
