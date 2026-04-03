@@ -5,7 +5,6 @@ namespace SportsLeague.Domain.Interfaces.Services
     public interface ITeamService
 
     {
-
         Task<IEnumerable<Team>> GetAllAsync();
         Task<Team?> GetByIdAsync(int id);
         Task<Team> CreateAsync(Team team);
