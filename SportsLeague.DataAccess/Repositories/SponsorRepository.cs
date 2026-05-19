@@ -2,13 +2,10 @@
 using SportsLeague.DataAccess.Context;
 using SportsLeague.Domain.Entities;
 using SportsLeague.Domain.Interfaces.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SportsLeague.DataAccess.Repositories
 {
-    public class SponsorRepository: GenericRepository<Sponsor>, ISponsorRepository
+    public class SponsorRepository : GenericRepository<Sponsor>, ISponsorRepository
     {
         public SponsorRepository(LeagueDbContext context) : base(context)
         {
