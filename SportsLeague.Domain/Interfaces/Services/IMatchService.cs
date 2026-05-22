@@ -12,4 +12,3 @@ public interface IMatchService
     Task DeleteAsync(int id);
     Task UpdateStatusAsync(int id, MatchStatus newStatus);
 }
-

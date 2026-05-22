@@ -1,0 +1,51 @@
+﻿using Microsoft.EntityFrameworkCore;
+using SportsLeague.DataAccess.Context;
+using SportsLeague.Domain.Entities;
+using SportsLeague.Domain.Interfaces.Repositories;
+
+namespace SportsLeague.DataAccess.Repositories
+{
+    public class MatchLineupRepository : GenericRepository<MatchLineup>, IMatchLineupRespository
+    {
+        public MatchLineupRepository(LeagueDbContext context) : base(context)
+        {
+        }
+        public async Task<IEnumerable<MatchLineup>> GetByMatchAsync(int matchId)
+        {
+            return await _dbSet
+                .Where(ml => ml.MatchId == matchId)
+                .Include(ml => ml.Player)
+                .ThenInclude(p => p.Team)
+                .ToListAsync();
+        }
+        public async Task<IEnumerable<MatchLineup>> GetByMatchAndTeamAsync(int matchId, int teamId)
+        {
+            return await _dbSet
+                .Include(ml => ml.Player)
+                    .ThenInclude(p => p.Team)
+                .Where(ml => ml.MatchId == matchId && ml.Player.TeamId == teamId)
+                .ToListAsync();
+        }
+
+        public async Task<bool> ExistPlayerLineupInMatchsAsync(int matchId, int playerId)
+        {
+            return await _dbSet
+                .AnyAsync(ml => ml.MatchId == matchId && ml.PlayerId == playerId);
+        }
+
+        public async Task<int> countStartersOfTeamFromMatch(int matchId, int teamId)
+        {
+            return await _dbSet
+                .Where(ml => ml.MatchId == matchId && ml.IsStarter && (ml.Match.HomeTeamId == teamId || ml.Match.AwayTeamId == teamId))
+                .CountAsync();
+        }
+
+        public async Task<MatchLineup?> GetByIdWithAndTeamAsync(int lineupid)
+        {
+            return await _dbSet
+                .Include(ml => ml.Player)
+                .ThenInclude(p => p.Team)
+                .FirstOrDefaultAsync(ml => ml.Id == lineupid);
+        }
+    }
+}

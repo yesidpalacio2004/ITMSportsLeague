@@ -52,5 +52,12 @@ public class MatchRepository : GenericRepository<Match>, IMatchRepository
             .ThenBy(m => m.MatchDate)
             .ToListAsync();
     }
+
+    public async Task<bool> ExistTeamInMatchAsync(int matchId, int teamId)
+    {
+        return await _dbSet
+            .AnyAsync(m => m.Id == matchId &&
+                           (m.HomeTeamId == teamId || m.AwayTeamId == teamId));
+    }
 }
 
