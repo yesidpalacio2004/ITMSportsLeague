@@ -54,6 +54,8 @@ public static class DataSeeder
                 ("William", "Tesillo", PlayerPosition.Defender, 3),
                 ("Edwin", "Cardona", PlayerPosition.Midfielder, 10),
                 ("Alfredo", "Morelos", PlayerPosition.Forward, 9),
+                ("Jarlan", "Barrientos", PlayerPosition.Midfielder, 8),
+                ("Yerson", "Mosquera", PlayerPosition.Defender, 4),
             },
             // 2. Independiente Medellín
             new[] {
